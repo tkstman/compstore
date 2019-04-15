@@ -57,7 +57,7 @@ $('#signupbtn').on('click', function(e){
         if(resp=="Success")
         {
           alert("Account Created successfully!");
-          window.location = window.location.href + "signin.php";
+          window.location = window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/"))  + "/signin.php";
         }
         else {
           alert(resp);
@@ -79,10 +79,10 @@ $('#signinbtn').on('click', function(e){
   ).done(function(resp)
     {
 
-        if(resp=="Success!")
+        if(resp=="Success")
         {
           alert("User Verified!");
-          window.location = window.location.href + "catalog.php";
+          window.location = window.location.pathname.substring(0,window.location.pathname.lastIndexOf("/")) + "/catalog.php";
         }
         else {
           alert(resp);

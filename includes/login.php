@@ -20,7 +20,7 @@ if(!empty(htmlspecialchars($_POST['uemail'])) && !empty(htmlspecialchars($_POST[
         $prepstmt->bind_result($res);
         $prepstmt->fetch();
 
-        if($res>1)
+        if(count($res))
         {
           echo "Success";//. ;
         }
