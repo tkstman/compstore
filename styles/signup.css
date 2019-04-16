@@ -54,3 +54,12 @@ body {
 {
   background-color: red!important;
 }
+
+
+/*
+  Catalog Changes
+*/
+body div.container
+{
+    height:100%
+}

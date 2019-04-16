@@ -91,3 +91,28 @@ $('#signinbtn').on('click', function(e){
   );
 
 });
+
+
+$('#searchbtn').on('click', function(e){
+
+  $.ajax(
+    {
+      method: "POST",
+      url: 'includes/search.php',
+      data: {usearch:$('#inputsearch').val()}
+    }
+  ).done(function(resp)
+    {
+
+        if(resp=="Success")
+        {
+          alert("Search Return!");
+
+        }
+        else {
+          alert(resp);
+        }
+    }
+  );
+
+});
