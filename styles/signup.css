@@ -63,3 +63,8 @@ body div.container
 {
     height:100%
 }
+
+#searchresults
+{
+  min-height: 30px!important;
+}

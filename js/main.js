@@ -104,14 +104,15 @@ $('#searchbtn').on('click', function(e){
   ).done(function(resp)
     {
 
-        if(resp=="Success")
-        {
+        //if(resp=="Success")
+      //  {
+          $('#searchresults').html(resp);
           alert("Search Return!");
 
-        }
-        else {
-          alert(resp);
-        }
+        //}
+      //  else {
+        //  alert(resp);
+      //  }
     }
   );
 

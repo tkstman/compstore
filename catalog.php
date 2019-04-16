@@ -59,6 +59,9 @@
           2 of 2
         </div>
       </div>
+      <div id="searchresults">
+
+      </div>
 <!--
     </div>
 
