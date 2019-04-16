@@ -1,5 +1,12 @@
 <?php
+session_start();
+if(isset($_SESSION['ulogin']))
+{
+  header('location: catalog.php');
+}
+
 include_once('db_connx.php');
+
 
 if(!empty(htmlspecialchars($_POST['uemail'])) && !empty(htmlspecialchars($_POST['pword'])) )
 {
@@ -17,11 +24,15 @@ if(!empty(htmlspecialchars($_POST['uemail'])) && !empty(htmlspecialchars($_POST[
       if($prepstmt->execute())
       {
         //if insert was successfully executed we echo success
-        $prepstmt->bind_result($res);
-        $prepstmt->fetch();
+        //$prepstmt->bind_result($res);
+        $res=$prepstmt->get_result();
 
         if(count($res))
         {
+          //create session
+          $row = $res->fetch_assoc();
+          $_SESSION["ulogin"] =$row["uname"];
+          setcookie("uname",$row["uname"],strtotime('+30 days'),"/","","",TRUE);
           echo "Success";//. ;
         }
         else {

@@ -1,4 +1,15 @@
+<?php
+  session_start();
+  if(isset($_SESSION['ulogin']))
+  {
+  }
+  else
+  {
+    header('location: signin.php');
+  }
+ ?>
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="utf-8">
@@ -47,16 +58,15 @@
             <input type="text" id="inputsearch" class="form-control" placeholder="Search: eg Brand, Model, Category" required="" autofocus="">
             <div class="checkbox mb-3">
               <label>
-
                 <br/>
               </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" id="searchbtn" type="submit">Search</button>
-            <p class="mt-5 mb-3 text-muted">© 2017-2019</p>
           </form>
         </div>
         <div class="col col-lg-2 account-container">
-          2 of 2
+          <span class="acc"><a href="account.php">Your Account</a></span>
+          <span class="acc"><a href="logout.php">Logout</a></span>
         </div>
       </div>
       <div id="searchresults">

@@ -68,3 +68,9 @@ body div.container
 {
   min-height: 30px!important;
 }
+
+.acc
+{
+  border: solid 1px #e0e0e0;
+  margin-left:10px;
+}

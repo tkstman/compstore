@@ -87,14 +87,13 @@ $('#signinbtn').on('click', function(e){
         else {
           alert(resp);
         }
-    }
+      }
   );
-
 });
 
 
 $('#searchbtn').on('click', function(e){
-
+  e.preventDefault();
   $.ajax(
     {
       method: "POST",
@@ -103,17 +102,32 @@ $('#searchbtn').on('click', function(e){
     }
   ).done(function(resp)
     {
-
-        //if(resp=="Success")
-      //  {
           $('#searchresults').html(resp);
           alert("Search Return!");
-
-        //}
-      //  else {
-        //  alert(resp);
-      //  }
     }
   );
+});
 
+
+$(document).on('click','.buy', function(e){
+  e.preventDefault();
+  console.log( );
+  $.ajax(
+    {
+      method: "POST",
+      url: 'infocheck.php',
+      data: {usku:$($(e.target).parent().parent().children()[0]).html()}
+    }
+  ).done(function(resp)
+    {
+        //$('#searchresults').html(resp);
+        alert(resp);
+        //trigger the modal in response to the response from the info check
+
+        //when modal is submitted with the required information, move to the purchase confirmation
+
+        
+        alert("Search Return!");
+    }
+  );
 });
