@@ -115,7 +115,7 @@ $(document).on('click','.buy', function(e){
   $.ajax(
     {
       method: "POST",
-      url: 'infocheck.php',
+      url: 'includes/infocheck.php',
       data: {usku:$($(e.target).parent().parent().children()[0]).html()}
     }
   ).done(function(resp)
@@ -124,10 +124,70 @@ $(document).on('click','.buy', function(e){
         alert(resp);
         //trigger the modal in response to the response from the info check
 
+        if(resp=="card and address needed")
+        {
+          $('#addressModal').modal('show');
+          $('#cardModal').modal('show');
+        }
+        else if(resp=="card needed")
+        {
+          $('#cardModal').modal('show');
+        }
+        else if(resp=="address needed")
+        {
+          $('#addressModal').modal('show');
+        }
+
         //when modal is submitted with the required information, move to the purchase confirmation
 
-        
-        alert("Search Return!");
+
+        alert("Pleae Input The Required Info!");
+    }
+  );
+});
+
+
+$('#saveAddress').on('click', function(e){
+  e.preventDefault();
+  $.ajax(
+    {
+      method: "POST",
+      url: 'includes/infocheck.php',
+      data: {uaddr:$('#address-name').val()}
+    }
+  ).done(function(resp)
+    {
+      if(resp=="Address Updated Successfully")
+      {
+        alert(resp);
+        $('#addressModal').modal('hide');
+        $('#address-name').html()= "";
+      }
+    }
+  );
+});
+
+$('#saveCard').on('click', function(e){
+  e.preventDefault();
+  var mth = $("#month option:selected").html();
+  var yr = $("#year option:selected").html();
+  var dt = new Date(yr, mth, 1);
+  var locale_date_string = dt.toLocaleDateString();
+  $.ajax(
+    {
+      method: "POST",
+      url: 'includes/infocheck.php',
+      data: {ucardname:$('#cardname').val(),ucardnum:$('#cardnumber').val(),udate:locale_date_string}
+    }
+  ).done(function(resp)
+    {
+      if(resp=="Card Information Updated Successfully")
+      {
+        alert(resp);
+        $('#cardModal').modal('hide');
+        $('#cardnumber').html()= "";
+        $('#cardname').html()= "";
+      }
     }
   );
 });
