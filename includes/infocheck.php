@@ -9,7 +9,8 @@ if(isset($_SESSION['ulogin']))
   if( isset($_POST['usku']))
   {
     //check to see that the user has a card and a shipping address
-
+    echo 'sku sent';
+    exit();
 
     $qry = 'select * from account where username = "'. $uname .'"';
     $card=1;
@@ -38,19 +39,20 @@ if(isset($_SESSION['ulogin']))
       echo 'card and address needed';
       exit();
     }
-    if($card == 0)
+    else if($card == 0)
     {
       echo 'card needed';
       exit();
-    }
-    if($addr == 0 )
+    } else if($addr == 0 )
     {
       echo 'address needed';
       exit();
     }
-
-    echo "failed";
-    exit();
+    else if($card==1 && $addr==1)
+    {
+      echo 'card and address are on file';
+      exit();
+    }
     //if not the prompt user to enter the info needed
   }
 

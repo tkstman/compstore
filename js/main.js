@@ -121,7 +121,7 @@ $(document).on('click','.buy', function(e){
   ).done(function(resp)
     {
         //$('#searchresults').html(resp);
-        alert(resp);
+        //alert(resp);
         //trigger the modal in response to the response from the info check
 
         if(resp=="card and address needed")
@@ -137,11 +137,14 @@ $(document).on('click','.buy', function(e){
         {
           $('#addressModal').modal('show');
         }
+        else if(resp=="card and address are on file")
+        {
+          alert(resp);
+          //Show Address And Card and change button to place order
+        }
 
         //when modal is submitted with the required information, move to the purchase confirmation
-
-
-        alert("Pleae Input The Required Info!");
+        //alert("Pleae Input The Required Info!");
     }
   );
 });
