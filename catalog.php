@@ -110,6 +110,7 @@
                 <div class="form-group">
                   <label for="month">Month:</label>
                   <select class="form-control" id="month">
+                    <option>0</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -121,7 +122,6 @@
                     <option>9</option>
                     <option>10</option>
                     <option>11</option>
-                    <option>12</option>
                   </select>
                 </div>
                 <div class="form-group">

@@ -108,10 +108,25 @@ $('#searchbtn').on('click', function(e){
   );
 });
 
+var doPurchase = function(ppsku)
+{
+  e.preventDefault();
+
+  $.ajax(
+    {
+      method: "POST",
+      url: 'includes/infocheck.php',
+      data: {psku:ppsku}
+    }
+  ).done(function(resp)
+    {
+
+    });
+}
+
 
 $(document).on('click','.buy', function(e){
   e.preventDefault();
-  console.log( );
   $.ajax(
     {
       method: "POST",
@@ -121,7 +136,7 @@ $(document).on('click','.buy', function(e){
   ).done(function(resp)
     {
         //$('#searchresults').html(resp);
-        //alert(resp);
+        alert(resp);
         //trigger the modal in response to the response from the info check
 
         if(resp=="card and address needed")
@@ -140,7 +155,8 @@ $(document).on('click','.buy', function(e){
         else if(resp=="card and address are on file")
         {
           alert(resp);
-          //Show Address And Card and change button to place order
+          //place order
+          doPurchase($($(e.target).parent().parent().children()[0]).html());
         }
 
         //when modal is submitted with the required information, move to the purchase confirmation
@@ -186,11 +202,12 @@ $('#saveCard').on('click', function(e){
     {
       if(resp=="Card Information Updated Successfully")
       {
-        alert(resp);
+
         $('#cardModal').modal('hide');
         $('#cardnumber').html()= "";
         $('#cardname').html()= "";
       }
+      alert(resp);
     }
   );
 });

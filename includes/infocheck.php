@@ -6,11 +6,25 @@ if(isset($_SESSION['ulogin']))
   include_once('db_connx.php');
   $uname = htmlspecialchars($_SESSION['ulogin']);
 
+  if( isset($_POST['psku']))
+  {
+    $dostmt = "CALL doPurchase(?,?,?,?,?)";
+
+    if($result = $connx->query($upAddr))
+    {
+      if($result->num_rows ==1)
+      {
+        echo "Address Updated Successfully";
+      }
+    }
+  }
+
+
   if( isset($_POST['usku']))
   {
     //check to see that the user has a card and a shipping address
-    echo 'sku sent';
-    exit();
+    //echo 'sku sent';
+    //exit();
 
     $qry = 'select * from account where username = "'. $uname .'"';
     $card=1;
@@ -77,27 +91,37 @@ if(isset($_SESSION['ulogin']))
     $ucardnum = htmlspecialchars ($_POST['ucardnum']);
     $ucardname = htmlspecialchars ($_POST['ucardname']);
     $udate = htmlspecialchars ($_POST['udate']);
-    $upAddr = 'UPDATE account SET account.cardNumb = "'. $ucardnum.'", account.cardExpDate ="'. date( "Y-m-d", strtotime($udate) ) .'" WHERE account.username ="'.$uname .'"';
+    $udate = date( "Y-m-d", strtotime($udate) );
+    //$upcrd = 'UPDATE account SET account.cardNumb = "'. $ucardnum.'", account.cardExpDate ="'.  .'" WHERE account.username ="'. .'"';
 
-    if($result = $connx->query($upAddr))
+    $stmt = "CALL setCard(?,?,?,?,?)";
+
+    //execute the insert statement from above
+    if($prepstmt = $connx->prepare($stmt))
     {
-      if($connx->insert_id >0)
+      //update customer table
+      $pieces = explode(" ", $ucardname);
+      $fname =$pieces[0] ;
+      $lname = "";
+      //  echo "insert id error";
+      if(count($pieces) >1)
       {
-        //update customer table
-        $pieces = explode(" ", $ucardname);
-        $fname =$pieces[0] ;
-        $lname = "";
-        if(count($pieces) >1)
+        $lname =$pieces[1] ;
+      }
+
+      if($prepstmt->bind_param("sssss",$ucardnum,$udate,$fname,$lname,$uname))
+      {
+        if($prepstmt->execute())
         {
-          $lname =$pieces[1] ;
-        }
-        $upCust = 'UPDATE customer SET customer.cFname = "'. $fname.'", customer.cLname ="'. $lname .'" WHERE customer.accountID ='.$connx->insert_id ;
-        if($connx->query($upCust))
-        {
+          //if insert was successfully executed we echo success
+          $res = $prepstmt->get_result();
+
           echo "Card Information Updated Successfully";
         }
       }
     }
+
+
 
   }
 

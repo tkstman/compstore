@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(isset($_SESSION['ulogin']))
+{
+  header('location: catalog.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
