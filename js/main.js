@@ -108,25 +108,27 @@ $('#searchbtn').on('click', function(e){
   );
 });
 
-var doPurchase = function(ppsku)
+var doPurchase = function(ppsku,branch)
 {
-  e.preventDefault();
-
+  //e.preventDefault();
+  alert("inside do purchase");
   $.ajax(
     {
       method: "POST",
       url: 'includes/infocheck.php',
-      data: {psku:ppsku}
+      data: {psku:ppsku,pbranch:branch}
     }
   ).done(function(resp)
     {
-
+      alert(resp);
     });
 }
 
 
 $(document).on('click','.buy', function(e){
   e.preventDefault();
+  //alert($($(e.target).parent().parent().children()[10]).data("attrib"));
+
   $.ajax(
     {
       method: "POST",
@@ -156,13 +158,14 @@ $(document).on('click','.buy', function(e){
         {
           alert(resp);
           //place order
-          doPurchase($($(e.target).parent().parent().children()[0]).html());
+          doPurchase($($(e.target).parent().parent().children()[0]).html(), $($(e.target).parent().parent().children()[10]).data("attrib") );
         }
 
         //when modal is submitted with the required information, move to the purchase confirmation
         //alert("Pleae Input The Required Info!");
     }
-  );
+
+  );/**/
 });
 
 
@@ -204,8 +207,8 @@ $('#saveCard').on('click', function(e){
       {
 
         $('#cardModal').modal('hide');
-        $('#cardnumber').html()= "";
-        $('#cardname').html()= "";
+        $('#cardnumber').html("");
+        $('#cardname').html("");
       }
       alert(resp);
     }

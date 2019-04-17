@@ -6,17 +6,32 @@ if(isset($_SESSION['ulogin']))
   include_once('db_connx.php');
   $uname = htmlspecialchars($_SESSION['ulogin']);
 
-  if( isset($_POST['psku']))
+  if( isset($_POST['psku']) && isset($_POST['pbranch']))
   {
-    $dostmt = "CALL doPurchase(?,?,?,?,?)";
 
-    if($result = $connx->query($upAddr))
+    $dostmt = "CALL doPurchase(?,?,?,?)";
+    $psku=$_POST['psku'];
+    $pbranch=$_POST['pbranch'];
+    $udate = date("Y-m-d");
+    //execute the insert statement from above
+    if($prepstmtp = $connx->prepare($dostmt))
     {
-      if($result->num_rows ==1)
+      //update customer table
+
+      if($prepstmtp->bind_param("ssss",$psku,$udate,$pbranch,$uname))
       {
-        echo "Address Updated Successfully";
+        //echo "got in it";
+        //exit();
+        if($prepstmtp->execute())
+        {
+          //if insert was successfully executed we echo success
+          $resp = $prepstmtp->get_result();
+
+          echo "Purchase Made Successfully";
+        }
       }
     }
+
   }
 
 

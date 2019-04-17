@@ -83,10 +83,10 @@ if( !empty(htmlspecialchars ($_POST['usearch'])) )
             <td headers="Category" class="col  border bg-light">'.
                 $row['categoryName'].'
             </td>
-            <td headers="Brand" class="col  border bg-light">'.
+            <td headers="Brand" class="col  border bg-light" >'.
                 $row['brandName'].'
             </td>
-            <td headers="Branch" class="col  border bg-light">'.
+            <td headers="Branch" class="col  border bg-light" data-attrib="'.$row['branchNo'] .'">'.
                 $row['branchName'].'
             </td>
             <td headers="Processor" class="col  border bg-light">'.
